@@ -106,6 +106,16 @@ namespace Anathema.Vectors.Core
                 return true;
             return scalar.isClose(a.real, b.real) && scalar.isClose(a.imaginary, b.imaginary);
         }
+
+        public static com Conj(com a)
+        {
+            return new com(a.real, a.imaginary * (-1));
+        }
+
+        public static float Norm(com a)
+        {
+            return (float)Math.Sqrt((a.real * a.real) + (a.imaginary * a.imaginary));
+        }
     }
 }
 #endif
