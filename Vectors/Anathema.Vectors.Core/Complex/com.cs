@@ -18,14 +18,8 @@ namespace Anathema.Vectors.Core
         }
         public float real { get; set; }
         public float imaginary { get; set; }
-        public float norm
-        {
-            get
-            {
-                return (float)Math.Sqrt((real * real) + (imaginary * imaginary));
-            }
-        }
-
+        public float norm => (float)Math.Sqrt((real * real) + (imaginary * imaginary));
+        public float argument => (float)Math.Atan2(imaginary, real);
         public com()
         {
 
