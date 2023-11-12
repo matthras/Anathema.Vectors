@@ -18,6 +18,13 @@ namespace Anathema.Vectors.Core
         }
         public float real { get; set; }
         public float imaginary { get; set; }
+        public float norm
+        {
+            get
+            {
+                return (float)Math.Sqrt((real * real) + (imaginary * imaginary));
+            }
+        }
 
         public com()
         {
@@ -32,6 +39,10 @@ namespace Anathema.Vectors.Core
         {
             this.real = ri[0];
             this.imaginary = ri[1];
+        }
+        public static com Conj(com a)
+        {
+            return new com(a.real, a.imaginary * (-1));
         }
 
         public static com operator +(com a, com b) {
@@ -105,16 +116,6 @@ namespace Anathema.Vectors.Core
             if (a is null && b is null)
                 return true;
             return scalar.isClose(a.real, b.real) && scalar.isClose(a.imaginary, b.imaginary);
-        }
-
-        public static com Conj(com a)
-        {
-            return new com(a.real, a.imaginary * (-1));
-        }
-
-        public static float Norm(com a)
-        {
-            return (float)Math.Sqrt((a.real * a.real) + (a.imaginary * a.imaginary));
         }
     }
 }
