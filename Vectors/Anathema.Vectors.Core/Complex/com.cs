@@ -94,9 +94,6 @@ namespace Anathema.Vectors.Core
         {
             throw new NotImplementedException();
         }
-
-
-
         public static bool operator !=(com a, com b)
         {
             return !(a == b);
@@ -110,6 +107,15 @@ namespace Anathema.Vectors.Core
             if (a is null && b is null)
                 return true;
             return scalar.isClose(a.real, b.real) && scalar.isClose(a.imaginary, b.imaginary);
+        }
+        public static mat2 convertToRotation(com a)
+        {
+            mat2 output = new mat2();
+            output.setValue(0, 0, (float)Math.Cos(a.argument));
+            output.setValue(0, 1, (float)-Math.Sin(a.argument));
+            output.setValue(1, 0, (float)Math.Sin(a.argument));
+            output.setValue(1, 1, (float)Math.Cos(a.argument));
+            return output;
         }
     }
 }
