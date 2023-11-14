@@ -5,7 +5,7 @@ using System;
 namespace Anathema.Vectors.Core
 {
     /// <summary>
-    /// Double precision floating point complex number
+    /// Double precision doubleing point complex number
     /// </summary>
     public class dcom
     {
@@ -18,6 +18,8 @@ namespace Anathema.Vectors.Core
         }
         public double real { get; set; }
         public double imaginary { get; set; }
+        public double norm => (double)Math.Sqrt((real * real) + (imaginary * imaginary));
+        public double argument => (double)Math.Atan2(imaginary, real);
 
         public dcom()
         {
@@ -33,7 +35,10 @@ namespace Anathema.Vectors.Core
             this.real = ri[0];
             this.imaginary = ri[1];
         }
-
+        public static dcom Conj(dcom a)
+        {
+            return new dcom(a.real, a.imaginary * (-1));
+        }
 
         public static dcom operator +(dcom a, dcom b)
         {
@@ -52,7 +57,6 @@ namespace Anathema.Vectors.Core
         {
             throw new NotImplementedException();
         }
-
         public static dcom operator +(dcom a, double b)
         {
             throw new NotImplementedException();
@@ -102,6 +106,15 @@ namespace Anathema.Vectors.Core
             if (a is null && b is null)
                 return true;
             return scalar.isClose(a.real, b.real) && scalar.isClose(a.imaginary, b.imaginary);
+        }
+        public static dmat2 convertToRotationMatrix(dcom a)
+        {
+            dmat2 output = new dmat2();
+            output.setValue(0, 0, (double)Math.Cos(a.argument));
+            output.setValue(0, 1, (double)-Math.Sin(a.argument));
+            output.setValue(1, 0, (double)Math.Sin(a.argument));
+            output.setValue(1, 1, (double)Math.Cos(a.argument));
+            return output;
         }
     }
 }
