@@ -7,7 +7,7 @@ namespace Anathema.Vectors.Core
     /// <summary>
     /// Single precision floating point complex number
     /// </summary>
-    public class com
+    public partial class com
     {
         public override bool Equals(object o)
         {
@@ -108,7 +108,7 @@ namespace Anathema.Vectors.Core
                 return true;
             return scalar.isClose(a.real, b.real) && scalar.isClose(a.imaginary, b.imaginary);
         }
-        public static mat2 convertToRotation(com a)
+        public static mat2 convertToRotationMatrix(com a)
         {
             mat2 output = new mat2();
             output.setValue(0, 0, (float)Math.Cos(a.argument));
