@@ -7,7 +7,7 @@ namespace Anathema.Vectors.Core
     /// <summary>
     /// Single precision floating point complex number
     /// </summary>
-    public partial class com
+    public class com
     {
         public override bool Equals(object o)
         {
