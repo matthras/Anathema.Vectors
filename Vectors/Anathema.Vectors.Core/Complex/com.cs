@@ -117,6 +117,10 @@ namespace Anathema.Vectors.Core
             output.setValue(1, 1, (float)Math.Cos(a.argument));
             return output;
         }
+        public virtual float[] ToArray()
+        {
+            return new float[] { real, imaginary };
+        }
     }
 }
 #endif
