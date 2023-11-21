@@ -10,7 +10,6 @@ namespace Anathema.Vectors.Tests.FloatVectors
 {
     public class vec2DerivationTests
     {
-        const float REALLY_SMALL_VALUE = 0.00005f;
         [Theory]
         [InlineData(new object[] { 1, 2 })]
         [InlineData(new object[] { 5.2f, 10.00001f })]
@@ -27,8 +26,8 @@ namespace Anathema.Vectors.Tests.FloatVectors
             Assert.Equal(original.length, original.Length);
             Assert.Equal(original.length * original.length, original.LengthSquared);
 
-            Assert.True(Math.Abs(reconstructed.x - original.x) < REALLY_SMALL_VALUE);
-            Assert.True(Math.Abs(reconstructed.y - original.y) < REALLY_SMALL_VALUE);
+            Assert.True(Math.Abs(reconstructed.x - original.x) < scalar.floatComparisonTolerance);
+            Assert.True(Math.Abs(reconstructed.y - original.y) < scalar.floatComparisonTolerance);
         }
 
         [Theory]
@@ -43,11 +42,11 @@ namespace Anathema.Vectors.Tests.FloatVectors
             vec2 working = new vec2(x, y);
             float length = working.length;
             working.normalise();
-            Assert.True(Math.Abs(working.length - 1) < REALLY_SMALL_VALUE);
+            Assert.True(Math.Abs(working.length - 1) < scalar.floatComparisonTolerance);
             working *= length;
-            Assert.True(Math.Abs(working.length - length) < REALLY_SMALL_VALUE);
-            Assert.True(Math.Abs(x - working.x) < REALLY_SMALL_VALUE);
-            Assert.True(Math.Abs(y - working.y) < REALLY_SMALL_VALUE);
+            Assert.True(Math.Abs(working.length - length) < scalar.floatComparisonTolerance);
+            Assert.True(Math.Abs(x - working.x) < scalar.floatComparisonTolerance);
+            Assert.True(Math.Abs(y - working.y) < scalar.floatComparisonTolerance);
         }
 
 
@@ -68,7 +67,7 @@ namespace Anathema.Vectors.Tests.FloatVectors
 
             float result = a.dot(b);
 
-            Assert.True(Math.Abs(result - expectedResult) < REALLY_SMALL_VALUE);
+            Assert.True(Math.Abs(result - expectedResult) < scalar.floatComparisonTolerance);
         }
 
         [Theory]
@@ -83,8 +82,8 @@ namespace Anathema.Vectors.Tests.FloatVectors
             vec2 b = a.cross();
 
 
-            Assert.True(Math.Abs(b.x - expectedX) < REALLY_SMALL_VALUE);
-            Assert.True(Math.Abs(b.y - expectedY) < REALLY_SMALL_VALUE);
+            Assert.True(Math.Abs(b.x - expectedX) < scalar.floatComparisonTolerance);
+            Assert.True(Math.Abs(b.y - expectedY) < scalar.floatComparisonTolerance);
         }
 
         [Fact]
@@ -129,20 +128,20 @@ namespace Anathema.Vectors.Tests.FloatVectors
         public void fromCardinalAnglesDegrees()
         {
             vec2 north = vec2.fromAngleDegrees(0);
-            Assert.True(Math.Abs(north.x) < REALLY_SMALL_VALUE);
-            Assert.True(Math.Abs(north.y + 1) < REALLY_SMALL_VALUE);
+            Assert.True(Math.Abs(north.x) < scalar.floatComparisonTolerance);
+            Assert.True(Math.Abs(north.y + 1) < scalar.floatComparisonTolerance);
 
             vec2 south = vec2.fromAngleDegrees(180);
-            Assert.True(Math.Abs(south.x) < REALLY_SMALL_VALUE);
-            Assert.True(Math.Abs(south.y - 1) < REALLY_SMALL_VALUE);
+            Assert.True(Math.Abs(south.x) < scalar.floatComparisonTolerance);
+            Assert.True(Math.Abs(south.y - 1) < scalar.floatComparisonTolerance);
 
             vec2 east = vec2.fromAngleDegrees(90);
-            Assert.True(Math.Abs(east.x - 1) < REALLY_SMALL_VALUE);
-            Assert.True(Math.Abs(east.y) < REALLY_SMALL_VALUE);
+            Assert.True(Math.Abs(east.x - 1) < scalar.floatComparisonTolerance);
+            Assert.True(Math.Abs(east.y) < scalar.floatComparisonTolerance);
 
             vec2 west = vec2.fromAngleDegrees(270);
-            Assert.True(Math.Abs(west.x + 1) < REALLY_SMALL_VALUE);
-            Assert.True(Math.Abs(west.y) < REALLY_SMALL_VALUE);
+            Assert.True(Math.Abs(west.x + 1) < scalar.floatComparisonTolerance);
+            Assert.True(Math.Abs(west.y) < scalar.floatComparisonTolerance);
         }
 
 
@@ -155,8 +154,8 @@ namespace Anathema.Vectors.Tests.FloatVectors
             float expectedX, float expectedY)
         {
             vec2 vector = vec2.fromAngleDegreesAndLength(direction, length);
-            Assert.True(Math.Abs(vector.x - expectedX) < REALLY_SMALL_VALUE);
-            Assert.True(Math.Abs(vector.y - expectedY) < REALLY_SMALL_VALUE);
+            Assert.True(Math.Abs(vector.x - expectedX) < scalar.floatComparisonTolerance);
+            Assert.True(Math.Abs(vector.y - expectedY) < scalar.floatComparisonTolerance);
         }
 
         [Theory]
@@ -169,8 +168,8 @@ namespace Anathema.Vectors.Tests.FloatVectors
             float expectedX, float expectedY)
         {
             vec2 vector = vec2.fromAngleRadiansAndLength(direction, length);
-            Assert.True(Math.Abs(vector.x - expectedX) < REALLY_SMALL_VALUE);
-            Assert.True(Math.Abs(vector.y - expectedY) < REALLY_SMALL_VALUE);
+            Assert.True(Math.Abs(vector.x - expectedX) < scalar.floatComparisonTolerance);
+            Assert.True(Math.Abs(vector.y - expectedY) < scalar.floatComparisonTolerance);
         }
 
         [Fact]
@@ -180,13 +179,13 @@ namespace Anathema.Vectors.Tests.FloatVectors
             Assert.Equal(0, north.angleRadians);
 
             vec2 south = new vec2(0, 1);
-            Assert.True(south.angleRadians - Math.PI < REALLY_SMALL_VALUE);
+            Assert.True(south.angleRadians - Math.PI < scalar.floatComparisonTolerance);
 
             vec2 east = new vec2(1, 0);
-            Assert.True(east.angleRadians - Math.PI / 2 < REALLY_SMALL_VALUE);
+            Assert.True(east.angleRadians - Math.PI / 2 < scalar.floatComparisonTolerance);
 
             vec2 west = new vec2(-1, 0);
-            Assert.True(west.angleRadians - Math.PI * (3 / 2.0) < REALLY_SMALL_VALUE);
+            Assert.True(west.angleRadians - Math.PI * (3 / 2.0) < scalar.floatComparisonTolerance);
         }
 
 
@@ -194,20 +193,20 @@ namespace Anathema.Vectors.Tests.FloatVectors
         public void fromCardinalAnglesRadians()
         {
             vec2 north = vec2.fromAngleRadians(0);
-            Assert.True(Math.Abs(north.x) < REALLY_SMALL_VALUE);
-            Assert.True(Math.Abs(north.y + 1) < REALLY_SMALL_VALUE);
+            Assert.True(Math.Abs(north.x) < scalar.floatComparisonTolerance);
+            Assert.True(Math.Abs(north.y + 1) < scalar.floatComparisonTolerance);
 
             vec2 south = vec2.fromAngleRadians((float)Math.PI);
-            Assert.True(Math.Abs(south.x) < REALLY_SMALL_VALUE);
-            Assert.True(Math.Abs(south.y - 1) < REALLY_SMALL_VALUE);
+            Assert.True(Math.Abs(south.x) < scalar.floatComparisonTolerance);
+            Assert.True(Math.Abs(south.y - 1) < scalar.floatComparisonTolerance);
 
             vec2 east = vec2.fromAngleRadians((float)(Math.PI / 2.0));
-            Assert.True(Math.Abs(east.x - 1) < REALLY_SMALL_VALUE);
-            Assert.True(Math.Abs(east.y) < REALLY_SMALL_VALUE);
+            Assert.True(Math.Abs(east.x - 1) < scalar.floatComparisonTolerance);
+            Assert.True(Math.Abs(east.y) < scalar.floatComparisonTolerance);
 
             vec2 west = vec2.fromAngleRadians((float)(Math.PI * (3 / 2.0f)));
-            Assert.True(Math.Abs(west.x + 1) < REALLY_SMALL_VALUE);
-            Assert.True(Math.Abs(west.y) < REALLY_SMALL_VALUE);
+            Assert.True(Math.Abs(west.x + 1) < scalar.floatComparisonTolerance);
+            Assert.True(Math.Abs(west.y) < scalar.floatComparisonTolerance);
         }
 
 
