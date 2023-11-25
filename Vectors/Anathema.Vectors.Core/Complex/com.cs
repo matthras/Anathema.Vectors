@@ -34,6 +34,16 @@ namespace Anathema.Vectors.Core
             this.real = ri[0];
             this.imaginary = ri[1];
         }
+        public com(com c)
+        {
+            this.real = c.real;
+            this.imaginary = c.imaginary;
+        }
+        public com(dcom c)
+        {
+            this.real = (float)c.real;
+            this.imaginary = (float)c.imaginary;
+        }
         public static com Conj(com a)
         {
             return new com(a.real, a.imaginary * (-1));
