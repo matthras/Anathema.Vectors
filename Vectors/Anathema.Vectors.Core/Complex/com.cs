@@ -48,7 +48,36 @@ namespace Anathema.Vectors.Core
         {
             return new com(a.real, a.imaginary * (-1));
         }
+        public virtual void normalise()
+        {
+            float n = norm;
+            real /= n;
+            imaginary /= n;
+        }
+        public com normalised
+        {
+            get
+            {
+                return this / norm;
+            }
+        }
+#if CAPITALS_ENABLED
+        public float Norm
+        {
+            get
+            {
+                return norm;
+            }
+        }
 
+        public float Argument
+        {
+            get
+            {
+                return argument;
+            }
+        }
+#endif
         public static com operator +(com a, com b) {
             return new com(a.real + b.real, a.imaginary + b.imaginary);
         }
