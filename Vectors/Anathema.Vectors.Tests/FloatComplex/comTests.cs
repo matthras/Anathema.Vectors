@@ -96,4 +96,36 @@ namespace Anathema.Vectors.Tests.Complex
         }
 
     }
+    public class comDerivationTests // Adapted from vec2DerivationTests
+    {
+        [Theory]
+        [InlineData(new object[] { 1, 2 })]
+        [InlineData(new object[] { 5.2f, 10.00001f })]
+        [InlineData(new object[] { -37, 0 })]
+        [InlineData(new object[] { 3, 4 })]
+        [InlineData(new object[] { 15.23f, 20.99999999999f })]
+        [InlineData(new object[] { 2, -5 })]
+
+        public void arbitraryNormalisation(float re, float im)
+        {
+            com original = new com(re, im);
+            com normalised = original.normalised;
+            com reconstructed = normalised * original.norm;
+
+            Assert.Equal(original.norm, original.Norm);
+            Assert.Equal(original.argument, original.Argument);
+
+            Assert.True(Math.Abs(reconstructed.real - original.real) < scalar.floatComparisonTolerance);
+            Assert.True(Math.Abs(reconstructed.imaginary - original.imaginary) < scalar.floatComparisonTolerance);
+
+            com working = new com(re, im);
+            float norm = working.norm;
+            working.normalise();
+            Assert.True(Math.Abs(working.norm - 1) < scalar.floatComparisonTolerance);
+            working *= norm;
+            Assert.True(Math.Abs(working.norm - norm) < scalar.floatComparisonTolerance);
+            Assert.True(Math.Abs(re - working.real) < scalar.floatComparisonTolerance);
+            Assert.True(Math.Abs(im - working.imaginary) < scalar.floatComparisonTolerance);
+        }
+    }
 }
